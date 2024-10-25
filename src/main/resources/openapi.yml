@@ -1,0 +1,55 @@
+openapi: 3.0.1
+info:
+  title: User Aggregation API
+  description: API for aggregating user data from multiple databases.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/users:
+    get:
+      summary: Get aggregated users
+      description: Retrieves a list of users aggregated from multiple databases. Supports filtering by username, name, and surname.
+      parameters:
+        - name: username
+          in: query
+          required: false
+          description: Filter users by username.
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: false
+          description: Filter users by name.
+          schema:
+            type: string
+        - name: surname
+          in: query
+          required: false
+          description: Filter users by surname.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of aggregated users.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: example-user-id-1
+                    username:
+                      type: string
+                      example: user-1
+                    name:
+                      type: string
+                      example: User
+                    surname:
+                      type: string
+                      example: Userenko
+        '400':
+          description: Invalid request parameters.

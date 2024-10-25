@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    databases:
+      - name: primary_db
+        strategy: postgres
+        url: jdbc:postgresql://localhost:5432/primary_db
+        table: users
+        username: postgres
+        password: postgres
+        mapping:
+          id: id
+          username: username
+          name: name
+          surname: surname
+      - name: secondary_db
+        strategy: postgres
+        table: users
+        url: jdbc:postgresql://localhost:5432/secondary_db
+        username: postgres
+        password: postgres
+        mapping:
+          id: id
+          username: username
+          name: name
+          surname: surname
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+jpa:
+  show-sql: true
+  hibernate:
+    ddl-auto: create
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: DEBUG
